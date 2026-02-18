@@ -1,6 +1,6 @@
 {
 	"$schema": "./node_modules/wrangler/config-schema.json",
-	"name": "unaccessible-wasm-runtime",
+	"name": "astro-6-unaccessible-wasm-runtime",
 	"main": "@astrojs/cloudflare/entrypoints/server",
 	"compatibility_date": "2025-10-10",
 	"compatibility_flags": ["nodejs_compat"],

@@ -1,19 +1,17 @@
 # Astro Starter Kit: Blog
 
 ```sh
-npm create astro@latest -- --template blog
+pnpm create astro@latest -- --template blog
 ```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
 Features:
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and OpenGraph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+- Minimal styling
+- SEO-friendly with canonical/OpenGraph metadata
+- Sitemap support
+- RSS feed support
+- Markdown + MDX support
+- Dynamic `/og-image?title=&description=` endpoint from `src/pages/og-image/index.js`
 
 ## 🚀 Project Structure
 
@@ -42,16 +40,40 @@ Any static assets, like images, can be placed in the `public/` directory.
 
 ## 🧞 Commands
 
-All commands are run from the root of the project, from a terminal:
+All commands are run from the project root:
 
 | Command                   | Action                                           |
 | :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+| `pnpm install`            | Installs dependencies                            |
+| `pnpm dev`                | Starts local dev server at `localhost:4321`      |
+| `pnpm build`              | Builds the production site to `./dist/`          |
+| `pnpm preview`            | Preview the Astro build locally                  |
+| `pnpm preview:worker`     | Builds + runs the Cloudflare Worker locally      |
+| `pnpm deploy`             | Builds + deploys with Wrangler                   |
+| `pnpm astro ...`          | Run Astro CLI commands                           |
+
+## Cloudflare Workers deployment
+
+This project is configured for Cloudflare Workers via the Astro adapter (`@astrojs/cloudflare`):
+
+- `astro.config.mjs` uses `output: "server"` with `adapter: cloudflare()`.
+- `wrangler.toml` provides Worker metadata (name and compatibility date) used by local/dev tooling.
+- `src/pages/og-image/index.js` provides the `/og-image` endpoint used by metadata in `src/components/BaseHead.astro`.
+
+Deploy flow:
+
+1. Build Astro with the adapter: `pnpm build`
+2. Deploy the generated Worker + assets: `pnpm deploy`
+
+## OG image endpoint
+
+`/og-image` supports both optional query params:
+
+- `/og-image?title=My+Title`
+- `/og-image?description=My+Description`
+- `/og-image?title=My+Title&description=My+Description`
+
+When either query param is missing, defaults are used.
 
 ## 👀 Want to learn more?
 

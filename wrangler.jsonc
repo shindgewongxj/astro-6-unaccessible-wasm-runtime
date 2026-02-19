@@ -1,0 +1,20 @@
+{
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "astro-6-unaccessible-wasm-runtime",
+	"main": "@astrojs/cloudflare/entrypoints/server",
+	"compatibility_date": "2025-10-10",
+	"compatibility_flags": ["nodejs_compat"],
+	"assets": {
+		"binding": "ASSETS",
+		"directory": "dist"
+	},
+	"build": {
+		"command": "npx astro build"
+	},
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "invocation_logs": true
+    }
+  }
+}
